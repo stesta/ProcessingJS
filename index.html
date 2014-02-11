@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/processing.js/1.4.1/processing-api.min.js" type="text/javascript"></script>
+</head>
+<body>
+    <canvas id="canvas1"></canvas>
+    <script type="text/javascript">
+		// Steve Rules!
+        // Jay this was so easy, this was all me!
+        // Great presentation today, thank you!
+		
+        (function () {
+
+            function program(proc) {
+
+                theta = 0.0;
+                amplitude = 0;
+
+                proc.setup = function () {
+                    proc.size(1024, 480);
+                    proc.frameRate(30);
+                    proc.strokeWeight(5);
+
+                    amplitude = proc.height;
+                };
+
+                proc.draw = function () {
+                    proc.background(255);
+
+                    // Taste the rainbow!
+                    proc.stroke(proc.map(Math.sin(theta), -1, 1, 0, 255), proc.map(Math.sin(theta + (Math.PI/2)), -1, 1, 0, 255), proc.map(Math.sin(theta + Math.PI), -1, 1, 0, 255));
+
+                    var cy1 = (Math.sin(theta) * amplitude) + (proc.height / 2);
+                    var cy2 = (Math.sin(theta + (Math.PI)) * amplitude) + (proc.height / 2);
+
+                    proc.bezier(0, proc.height / 2,             // x1, y1
+                                proc.width / 2, cy1,            // cx1, cy1
+                                proc.width / 2, cy2,            // cx2, cy2
+                                proc.width, proc.height / 2);   // x2, y2
+
+                    theta += .02; // Increment our sine wave
+                };
+            }
+
+            var canvas = document.getElementById("canvas1");
+            var instance = new Processing(canvas, program);
+
+        })();
+    </script>
+</body>
+</html>
